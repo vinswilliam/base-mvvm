@@ -12,7 +12,7 @@ import co.id.githubfinder.user.data.UserGithubDao
 import co.id.githubfinder.worker.SeedDatabaseWorker
 
 @Database(entities = [UserGithub::class],
-version = 1, exportSchema = false)
+version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
   abstract fun userGithubDao(): UserGithubDao
 
@@ -35,6 +35,7 @@ abstract class AppDatabase : RoomDatabase() {
             WorkManager.getInstance(context).enqueue(request)
           }
         })
+        .fallbackToDestructiveMigration()
         .build()
     }
   }
